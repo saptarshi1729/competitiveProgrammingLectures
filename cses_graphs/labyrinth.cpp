@@ -52,12 +52,14 @@ int main()
             break;
         }
         for(ll j=0;j<4;j++){
-            if(curri+possX[j]>=0&&curri+possX[j]<n&&currj+possY[j]>=0&&currj+possY[j]<m&&vis[curri+possX[j]][currj+possY[j]]==0){
-                if(v[curri+possX[j]][currj+possY[j]]=='#')
+            ll newi = curri+possX[j];
+            ll newj = currj+possY[j];
+            if(newi>=0&&newi<n&&newj>=0&&newj<m&&vis[newi][newj]==0){
+                if(v[newi][newj]=='#')
                     continue;
-                elementsX.pb(curri+possX[j]);
-                elementsY.pb(currj+possY[j]);
-                vis[curri+possX[j]][currj+possY[j]] = true;
+                elementsX.pb(newi);
+                elementsY.pb(newj);
+                vis[newi][newj] = true;
                 prev.pb(i);
                 prevMove.pb(moves[j]);
             }
