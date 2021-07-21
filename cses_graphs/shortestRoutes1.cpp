@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+using namespace std;
+
+#define pb push_back
+#define ll long long int
+#define loop(i,a,b,c) for(i=a;i<b;i+=c)
+#define endl "\n"
+
+int main() 
+{ 
+    ll n, m;
+    cin >> n;
+    cin >> m;
+    vector<vector<ll> > adj(n+1,vector<ll>(0));
+    vector<vector<ll> > cost(n+1,vector<ll>(0));
+    for(ll i=0;i<m;i++){
+        ll a, b, c;
+        cin >> a >> b >> c;
+        adj[a].pb(b);
+        cost[a].pb(c);
+    }
+    set<pair<ll,ll> > s;
+    s.insert(make_pair(0,1));
+    for(ll i=2;i<=n;i++){
+        s.insert(make_pair(1000000000000000,i));
+    }
+    vector<ll> dist(n+1,1000000000000000);
+    dist[1] = 0;
+    while(s.size()>0){
+        ll v = s.begin()->second;
+        s.erase(s.begin());
+        for(ll i=0;i<adj[v].size();i++){
+            ll prevCost = dist[adj[v][i]];
+            if(dist[v]+cost[v][i]<prevCost){
+                pair<ll,ll> p = make_pair(prevCost,adj[v][i]);
+                s.erase(p);
+                s.insert(make_pair(dist[v]+cost[v][i],adj[v][i]));
+                dist[adj[v][i]] = dist[v]+cost[v][i];
+            }
+        }
+    }
+    for(ll i=1;i<=n;i++){
+        cout << dist[i] << " ";
+    }
+    cout << endl;
+} 
